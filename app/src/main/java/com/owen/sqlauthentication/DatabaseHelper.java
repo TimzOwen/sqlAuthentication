@@ -2,6 +2,7 @@ package com.owen.sqlauthentication;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -28,5 +29,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("password", password);
         long ins = db.insert("user","null",contentValues);
+        if (ins==-1) return false;
+        else return true;
+    }
+    //check if email exits
+    public boolean chMail(String email){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("Select * from user where email=?",new String[]{email});
+        if (cursor.getCount()>0) return false;
+        else return true;
     }
 }
