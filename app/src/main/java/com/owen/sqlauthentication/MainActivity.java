@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity  implements View.OnClickList
                 Toast.makeText(getApplicationContext(),"Fields cannot be empty",Toast.LENGTH_SHORT).show();
             }
             else if(password.equals(confirmPassword)){
-                Boolean chkMail = db.chMail(email);
-                if (chkMail==true){
-                    Boolean insert = db.insertData(email,password);
-                    if (insert==true){
+                boolean chkMail = db.chMail(email);
+                if (chkMail){
+                    boolean insert = db.insertData(email,password);
+                    if (insert){
                         Toast.makeText(getApplicationContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
                     }
                 }

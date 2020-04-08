@@ -1,5 +1,6 @@
 package com.owen.sqlauthentication;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -29,14 +30,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("email", email);
         contentValues.put("password", password);
         long ins = db.insert("user","null",contentValues);
-        if (ins==-1) return false;
-        else return true;
+        return ins != -1;
     }
     //check if email exits
     public boolean chMail(String email){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("Select * from user where email=?",new String[]{email});
-        if (cursor.getCount()>0) return false;
-        else return true;
+        @SuppressLint("Recycle") Cursor cursor = db.rawQuery("Select * from user where email=?",new String[]{email});
+        return cursor.getCount() <= 0;
     }
 }
